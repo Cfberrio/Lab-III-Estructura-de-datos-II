@@ -1,38 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package lab_3;
-
-/**
- *
- * @author user
- */
-import java.util.Scanner;
+import javax.swing.*;
 
 public class Lab_3 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        int arrh[] = {12, 11, 13, 5, 6, 7};
-        int arrm[] = {62, 31, 15, 4, 9, 7};
-        int arrq[] = {64, 51, 15, 6, 9, 43};
-        int N = arrh.length;
-        int Nm = arrm.length;
-        int Nq = arrq.length;
+
+        JOptionPane.showMessageDialog(null,
+                "¡Bienvenido al programa de ordenamientos!, Digite que ordenamiento desea usar: 1.Mergesort - 2.Heapsort - 3.Quicksort");
+        int Option = Integer
+                .parseInt(JOptionPane.showInputDialog(null, "Digite el número del ordenamiento que desea usar"));
+        int n = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite el tamaño del vector :"));
+        int arrm[] = new int[n];
+        int arrh[] = new int[n];
+        int arrq[] = new int[n];
+        switch (Option) {
+            case 1:
+                JOptionPane.showMessageDialog(null,
+                        "Ordenamiento Mergesort");
+                for (int i = 0; i < n; i++) {
+                    arrm[i] = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el elemento " + (i + 1)));
+                }
+                Merge ms = new Merge();
+                ms.mergeSort(arrm, 0, n - 1);
+                printArray(arrm);
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null,
+                        "Ordenamiento heapsort");
+                for (int i = 0; i < n; i++) {
+                    arrh[i] = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el elemento " + (i + 1)));
+                }
+                HeapSort hs = new HeapSort();
+                hs.sort(arrh);
+                printArray(arrh);
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null,
+                        "Ordenamiento quicksort");
+                for (int i = 0; i < n; i++) {
+                    arrq[i] = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el elemento " + (i + 1)));
+                }
+                Quick qs = new Quick();
+                qs.quickSort(arrq, 0, n - 1);
+                printArray(arrq);
+                break;
+
+        }
         HeapSort hs = new HeapSort();
         Merge ms = new Merge();
         Quick qs = new Quick();
         hs.sort(arrh);
-        ms.mergeSort(arrm, 0, Nm - 1);
-        qs.quickSort(arrq, 0, Nq - 1);
+        ms.mergeSort(arrm, 0, n - 1);
+        qs.quickSort(arrq, 0, n - 1);
         System.out.println("Sorted array is");
-        printArray(arrh);
-        printArray(arrm);
-        printArray(arrq);
     }
 
     public static class HeapSort {
@@ -167,11 +186,13 @@ public class Lab_3 {
             arr[j] = temp;
         }
 
-        /* This function takes last element as pivot, places
-       the pivot element at its correct position in sorted
-       array, and places all smaller (smaller than pivot)
-       to left of pivot and all greater elements to right
-       of pivot */
+        /*
+         * This function takes last element as pivot, places
+         * the pivot element at its correct position in sorted
+         * array, and places all smaller (smaller than pivot)
+         * to left of pivot and all greater elements to right
+         * of pivot
+         */
         static int partition(int[] arr, int low, int high) {
 
             // pivot
@@ -198,10 +219,11 @@ public class Lab_3 {
             return (i + 1);
         }
 
-        /* The main function that implements QuickSort
-              arr[] --> Array to be sorted,
-              low --> Starting index,
-              high --> Ending index
+        /*
+         * The main function that implements QuickSort
+         * arr[] --> Array to be sorted,
+         * low --> Starting index,
+         * high --> Ending index
          */
         static void quickSort(int[] arr, int low, int high) {
             if (low < high) {
