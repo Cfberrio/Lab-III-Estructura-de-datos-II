@@ -1,9 +1,10 @@
 import javax.swing.*;
 
+
+
 public class Lab_3 {
 
-    public static void main(String[] args) {
-
+    public static void Main() {
         JOptionPane.showMessageDialog(null,
                 "¡Bienvenido al programa de ordenamientos!, Digite que ordenamiento desea usar: 1.Mergesort - 2.Heapsort - 3.Quicksort");
         int Option;

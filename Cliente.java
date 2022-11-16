@@ -1,20 +1,23 @@
-import java.io.DataOutputStream;
-import java.net.Socket;
+import java.net.*;
+import java.io.*;
 
 public class Cliente {
-    public void Socket(String asd){
-        try {
+    public static void main(String[] args) throws IOException{
+        Socket s = new Socket("localhost", 9999);
 
-            Socket socket = new Socket("192.168.1.8", 9999);
-            DataOutputStream enviar_datos = new DataOutputStream(socket.getOutputStream());
+        PrintWriter pr = new PrintWriter(s.getOutputStream());
+        pr.println("Funciona?");
+        pr.flush();
 
-            enviar_datos.writeUTF(asd);
-            socket.close();
+        InputStreamReader in = new InputStreamReader(s.getInputStream());
+        BufferedReader bf = new BufferedReader(in);
 
+        String str = bf.readLine();
+        System.out.println("server: " + str);
 
-        }catch(Exception e) {
-            System.out.println(e);
-        }
+        Lab_3 lb = new Lab_3();
+        lb.Main();
+        
     }
 
 }

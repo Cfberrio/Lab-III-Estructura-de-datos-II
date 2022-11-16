@@ -1,19 +1,22 @@
-import java.io.DataInputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
+import java.io.*;
 
 public class Server {
-    public void server(){
-        try{
-            ServerSocket server = new ServerSocket(9999);
+    public static void main(String[] args) throws IOException{
+        ServerSocket ss = new ServerSocket(9999);
+        Socket s = ss.accept();
 
-            Socket misocket = server.accept();
-            DataInputStream recibir_datos = new DataInputStream(misocket.getInputStream());
-        
-            String mensajes = recibir_datos.readUTF();
-            System.out.println(mensajes);
-        }catch(Exception e) {
-            System.out.println(e);
-        }
+        System.out.println("cliente conectado");
+
+        InputStreamReader in = new InputStreamReader(s.getInputStream());
+        BufferedReader bf = new BufferedReader(in);
+
+        String str = bf.readLine();
+        System.out.println("cliente: " + str);
+
+        PrintWriter pr = new PrintWriter(s.getOutputStream());
+        pr.println("yes");
+        pr.flush();
+
     }
 }
