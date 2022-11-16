@@ -40,17 +40,33 @@ public class Lab_3 {
                 break;
             case 3:
                 JOptionPane.showMessageDialog(null,
-                        "Ordenamiento quicksort");
+                "Ordenamiento quicksort");
                 for (int i = 0; i < n; i++) {
                     arrq[i] = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el elemento " + (i + 1)));
                 }
                 Quick qs = new Quick();
-                qs.quickSort(arrq, 0, n - 1);
+                int inicio = Integer.parseInt(JOptionPane.showInputDialog(null, "Elija el pivote: 1. Izquierda y 2. Derecha"));
+                // Validacion sobre la eleccion
+                if (inicio==1 || inicio==2) {
+                    if (inicio == 1) {
+                        JOptionPane.showMessageDialog(null, "Pivote a la izquierda");
+                        qs.quickSortizq(arrq, 0, n - 1);
+                    }
+
+                    if (inicio==2) {
+                        JOptionPane.showMessageDialog(null, "Pivote a la derecha");
+                        qs.quickSort(arrq, 0, n - 1);
+                    }
+
+                    System.out.println("Sorted array: ");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Escoja un valor correcto");
+                }
                 System.out.println("Sorted array is");
                 printArray(arrq);
                 break;
-
         }
+
     }
 
     public static class HeapSort {
@@ -177,6 +193,34 @@ public class Lab_3 {
     }
 
     public static class Quick {
+
+        public static void quickSortizq(int A[], int izq, int der) {
+            // Extraido de: http://puntocomnoesunlenguaje.blogspot.com/2012/12/java-quicksort.html
+            
+            int pivote=A[izq]; // tomamos primer elemento como pivote
+            int i=izq;         // i realiza la búsqueda de izquierda a derecha
+            int j=der;         // j realiza la búsqueda de derecha a izquierda
+            int aux;
+           
+            while(i < j){                          // mientras no se crucen las búsquedas                                   
+               while(A[i] <= pivote && i < j) i++; // busca elemento mayor que pivote
+               while(A[j] > pivote) j--;           // busca elemento menor que pivote
+               if (i < j) {                        // si no se han cruzado                      
+                   aux= A[i];                      // los intercambia
+                   A[i]=A[j];
+                   A[j]=aux;
+               }
+             }
+             
+             A[izq]=A[j];      // se coloca el pivote en su lugar de forma que tendremos                                    
+             A[j]=pivote;      // los menores a su izquierda y los mayores a su derecha
+             
+             if(izq < j-1)
+                quickSortizq(A,izq,j-1);          // ordenamos subarray izquierdo
+             if(j+1 < der)
+                quickSortizq(A,j+1,der);          // ordenamos subarray derecho
+             
+        }
 
         // A utility function to swap two elements
         static void swap(int[] arr, int i, int j) {
